@@ -1,0 +1,37 @@
+{
+  "name": "fplabs",
+  "version": "1.0.0",
+  "description": "MEng Project - Device fingerprinting",
+  "main": "index.js",
+  "repository": "git@github.com:Xanndarr/fplabs.git",
+  "author": "Tom Barwick <tom_barwick@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-module-alias": "^1.6.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "html-webpack-plugin": "^2.30.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^3.1.3",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.1",
+    "prettier": "^1.10.2"
+  },
+  "lint-staged": {
+    "gitDir": "../",
+    "*.js": [
+      "prettier --write --print-width 100 --single-quote --trailing-comma all --parser babylon",
+      "git add"
+    ]
+  }
+}
