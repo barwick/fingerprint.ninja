@@ -3,7 +3,11 @@
   "plugins": [
     [
       "module-alias",
-      [{ "src": "./app", "expose": "app" }, { "src": "./static", "expose": "static" }]
+      [
+        { "src": "./app", "expose": "app" },
+        { "src": "./static", "expose": "static" },
+        { "src": "./lib", "expose": "lib" }
+      ]
     ]
   ]
 }

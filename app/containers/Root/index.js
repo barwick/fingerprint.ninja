@@ -1,9 +1,13 @@
 import React from 'react';
+import * as Probes from 'lib/probes';
 
-const Root = () => (
-  <div>
-    <p>Hello World!</p>
-  </div>
-);
+const Root = () => {
+  return (
+    <div>
+      <p>Hello World!</p>
+      <p>Screen Resolution: {Probes.getScreenResolution()}</p>
+    </div>
+  );
+};
 
 export default Root;
