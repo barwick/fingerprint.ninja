@@ -6,6 +6,11 @@
   "repository": "git@github.com:Xanndarr/fplabs.git",
   "author": "Tom Barwick <tom_barwick@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --port 3000",
+    "precommit": "lint-staged"
+  },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -28,7 +33,6 @@
     "prettier": "^1.10.2"
   },
   "lint-staged": {
-    "gitDir": "../",
     "*.js": [
       "prettier --write --print-width 100 --single-quote --trailing-comma all --parser babylon",
       "git add"
