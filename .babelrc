@@ -2,12 +2,14 @@
   "presets": ["react", "env", "stage-0"],
   "plugins": [
     [
-      "module-alias",
-      [
-        { "src": "./app", "expose": "app" },
-        { "src": "./static", "expose": "static" },
-        { "src": "./lib", "expose": "lib" }
-      ]
+      "module-resolver",
+      {
+        "alias": {
+          "app": "./app",
+          "static": "./static",
+          "lib": "./lib"
+        }
+      }
     ]
   ]
 }
