@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --port 3000",
-    "precommit": "lint-staged"
+    "precommit": "eslint app/ lib/ && lint-staged"
   },
   "dependencies": {
     "react": "^16.2.0",
