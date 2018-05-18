@@ -12,8 +12,17 @@
     "precommit": "eslint app/ lib/ && lint-staged"
   },
   "dependencies": {
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-syntax-highlighter": "^7.0.4",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
+    "styled-components": "^3.2.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
