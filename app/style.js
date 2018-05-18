@@ -29,6 +29,7 @@ injectGlobal([
     font-size: 14px;
   }
 
+  // 'app' is a reserved DOM element created by React.js
   #app {
     max-width: 90%;
     @media (min-width: var(--media-desktop)) {
