@@ -26,6 +26,10 @@ module.exports = {
         test: /\.(png|svg|otf)$/,
         loader: 'file-loader?name=img-[hash:6].[ext]',
       },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
     ],
   },
   plugins: [
