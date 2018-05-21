@@ -1,0 +1,17 @@
+# Exclude all files
+/*
+
+# Only include src folders we need
+!/app/
+!/lib/
+!/static/
+
+# Config files
+!.gitignore
+!LICENSE
+!README.md
+!yarn.lock
+!package.json
+!webpack.config.js
+!.babelrc
+!.eslintrc.json

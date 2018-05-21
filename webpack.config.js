@@ -26,6 +26,10 @@ module.exports = {
         test: /\.(png|svg|otf)$/,
         loader: 'file-loader?name=img-[hash:6].[ext]',
       },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
     ],
   },
   plugins: [
@@ -41,7 +45,7 @@ module.exports = {
   devtool: 'eval',
   target: 'web', // Make web variables accessible to webpack, e.g. window
   devServer: {
-    contentBase: './public',
+    contentBase: './public', // ['./public', path.join(__dirname, 'static')]
     hot: true,
     noInfo: true,
     historyApiFallback: {
