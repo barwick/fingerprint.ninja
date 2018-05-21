@@ -1,6 +1,15 @@
 # Serverless deployment config
 service: fplabs
 
+# Bundle our handlers with webpack for ES6 support
+plugins:
+  - serverless-webpack
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: false
+    packager: 'npm'
+
 # AWS env variables
 provider:
   name: aws
@@ -10,9 +19,9 @@ provider:
 
 # Function scaffolding
 functions:
-  probe:
-    handler: handler.test
+  fp:
+    handler: fp.submit
     events:
       - http:
-          path: test
+          path: submit
           method: post

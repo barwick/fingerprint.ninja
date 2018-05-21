@@ -21,5 +21,6 @@
 # ignores all immediate files unless specified
 # e.g. serverless caches
 api/*
-!api/handler.js
+!api/*.js
 !api/serverless.yml
+!api/webpack.config.js
