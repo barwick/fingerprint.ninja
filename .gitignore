@@ -2,16 +2,23 @@
 /*
 
 # Only include src folders we need
+!/api/
 !/app/
 !/lib/
 !/static/
 
 # Config files
-!.gitignore
-!LICENSE
-!README.md
-!yarn.lock
-!package.json
-!webpack.config.js
 !.babelrc
 !.eslintrc.json
+!.gitignore
+!LICENSE
+!package.json
+!README.md
+!webpack.config.js
+!yarn.lock
+
+# API Ignores
+# ignores all immediate files unless specified
+# e.g. serverless caches
+api/*
+!api/handler.js
