@@ -1,4 +1,4 @@
-const test = (event, context, callback) => {
+export const submit = (event, context, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
@@ -11,4 +11,4 @@ const test = (event, context, callback) => {
   callback(null, response);
 };
 
-export default test;
+export default submit;
