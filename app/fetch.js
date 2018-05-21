@@ -1,5 +1,5 @@
 async function fetchWrapper(method, resource = '', body) {
-  const response = await fetch(`http://example.com${resource}`, {
+  const response = await fetch(`https://api.fingerprint.ninja${resource}`, {
     method,
     headers: {
       'Content-Type': 'application/json',
