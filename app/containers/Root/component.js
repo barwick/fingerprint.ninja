@@ -1,17 +1,41 @@
 import React from 'react';
-import * as Probes from 'lib/probes';
+import styled from 'styled-components';
 
-const Root = () => {
-  const results = Object.values(Probes).map(probe => {
-    const result = probe();
-    return (
-      <p key={probe.name} style={{ whiteSpace: 'pre' }}>
-        {probe.name}:{' '}
-        {typeof result === 'object' ? JSON.stringify(result, null, '\t') : result.toString()}
-      </p>
-    );
-  });
-  return <div>{results}</div>;
-};
+import Logo from 'app/components/Logo';
+import GithubCorner from 'app/components/Github';
+
+import Fingerprint from 'app/containers/Fingerprint';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+`;
+
+const Footer = styled.div`
+  padding-bottom: 20px;
+  text-align: center;
+`;
+
+const Email = styled.a`
+  color: var(--font-col);
+`;
+
+const Root = () => (
+  <Container>
+    <GithubCorner />
+    <div>
+      <Logo />
+      <Fingerprint />
+    </div>
+    <Footer>
+      Tom Barwick | <Email href="mailto:tb1414@ic.ac.uk">tb1414@ic.ac.uk</Email> | Imperial College
+      London
+    </Footer>
+  </Container>
+);
 
 export default Root;
