@@ -25,3 +25,8 @@ functions:
       - http:
           path: submit
           method: post
+          cors:
+            origin: 'https://fingerprint.ninja'
+            headers:
+              - '*'
+            allowCredentials: false
