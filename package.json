@@ -12,6 +12,8 @@
     "precommit": "eslint app/ lib/ && lint-staged"
   },
   "dependencies": {
+    "aws-sdk": "^2.245.1",
+    "dynamodb-data-types": "^3.0.1",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "prop-types": "^15.6.1",
@@ -22,7 +24,8 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
-    "styled-components": "^3.2.6"
+    "styled-components": "^3.2.6",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
