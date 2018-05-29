@@ -6,10 +6,11 @@ import logoPng from 'static/logo.png';
 
 const LogoElement = styled.img`
   max-width: 600px;
-  max-height: 300px;
-
+  max-height: 200px;
   width: ${props => props.scale * 100}%;
   height: auto;
+
+  margin-bottom: 20px;
 `;
 
 const Logo = ({ scale }) => <LogoElement src={logoPng} scale={scale} />;

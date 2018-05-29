@@ -15,6 +15,7 @@
 !package.json
 !README.md
 !webpack.config.js
+!webpack.production.config.js
 !yarn.lock
 
 # API Ignores
