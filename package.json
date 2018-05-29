@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.245.1",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "dynamodb-data-types": "^3.0.1",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
