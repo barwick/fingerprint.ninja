@@ -1,0 +1,32 @@
+# Serverless deployment config
+service: fplabs
+
+# Bundle our handlers with webpack for ES6 support
+plugins:
+  - serverless-webpack
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: false
+    packager: 'npm'
+
+# AWS env variables
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: eu-west-2
+
+# Function scaffolding
+functions:
+  fp:
+    handler: fp.submit
+    events:
+      - http:
+          path: submit
+          method: post
+          cors:
+            origin: 'https://fingerprint.ninja'
+            headers:
+              - '*'
+            allowCredentials: false

@@ -2,6 +2,7 @@
 /*
 
 # Only include src folders we need
+!/api/
 !/app/
 !/lib/
 !/static/
@@ -16,3 +17,11 @@
 !webpack.config.js
 !webpack.production.config.js
 !yarn.lock
+
+# API Ignores
+# ignores all immediate files unless specified
+# e.g. serverless caches
+api/*
+!api/*.js
+!api/serverless.yml
+!api/webpack.config.js
