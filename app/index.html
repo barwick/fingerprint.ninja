@@ -10,9 +10,12 @@
     <!-- The app hooks into this div -->
     <div id="app"></div>
 
-    <!-- Empty canvas element for canvas tests -->
-    <canvas id="fp_canvas" width="0" height="0"></canvas>
-    <!-- Load adblock detection helper -->
+
+    <!-- Additional DOM elements used by probes -->
+    <canvas id="fp_canvas" hidden />
+    <div id="fp_font_detection" hidden />
+
+    <!-- Adblock detection helper -->
     <script src="https://s3.eu-west-2.amazonaws.com/xanndarr/ads.js" type="text/javascript"></script>
   </body>
 </html>

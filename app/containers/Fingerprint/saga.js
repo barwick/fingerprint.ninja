@@ -12,8 +12,8 @@ import {
 export function* publishFingerprintWorker({ fp }) {
   try {
     // TODO: check 200 status - maybe throw error in wrapper for non 200s?
-    /* eslint-disable-next-line no-unused-vars */
-    const response = yield call(fetchWrapper, 'POST', '/fp', fp);
+    const response = yield call(fetchWrapper, 'POST', '/submit', fp);
+    console.log(response);
     yield put(publishFingerprintSuccess());
   } catch (error) {
     yield put(publishFingerprintFail(error));

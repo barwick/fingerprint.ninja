@@ -17,7 +17,7 @@ import './style'; // Global CSS Styling
 const logger = createLogger();
 const reduxSaga = createSagaMiddleware();
 
-const isDev = Boolean(process.env.NODE_ENV !== 'prod');
+const isDev = window && window.location && window.location.hostname === 'localhost';
 const middleware = isDev ? [logger, reduxSaga] : [reduxSaga];
 
 const store = createStore(reducer, applyMiddleware(...middleware));

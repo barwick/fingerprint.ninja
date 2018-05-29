@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import * as ProbesLib from 'lib/probes';
+import * as ProbesLib from 'lib/probes';
 
 import SubmitButton from 'app/components/SubmitButton';
 
@@ -21,7 +21,14 @@ const Probes = ({ fingerprint, publishFingerprint }) => (
     <SubmitButton
       text="Submit your fingerprint"
       onSubmit={() => {
-        publishFingerprint(fingerprint);
+        console.log(Object.values(ProbesLib).reduce((acc, probe) => {
+            try {
+              return { ...acc, [probe.name]: probe() };
+            } catch (e) {
+              console.log(e);
+              return acc;
+            }
+          }));
       }}
     />
   </Container>
