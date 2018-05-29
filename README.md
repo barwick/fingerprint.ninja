@@ -11,6 +11,8 @@ lib/ - A library of javascript probes used to scrape data from clients
 lib/vendor - Vendor scripts used in probes. Includes third party fingerprinting libraries
 ```
 
+This site and accompanying libraries were written in pure (ES6) Javascript. The front-end application uses React, Redux and Redux-sagas (async operations), with Webpack to package and Babel to transpile (to browser compatible JS) the bundle. The API runs Node.js code on AWS Lambdas to save on running costs.
+
 # About
 
 I'm looking at [device fingerprinting](https://en.wikipedia.org/wiki/Device_fingerprint) for my masters project as part of my fourth year at Imperial College London studying Computing. I've written a library of probes based on as many common/recent [fingerprinting techniques](#Probes) as possible. Through collecting browser metrics from many clients, I aim to work towards an 'ideal' fingerprint and additionally measure the success of existing libraries.
