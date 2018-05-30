@@ -5,7 +5,9 @@ import ProbesComponent from './component';
 import { publishFingerprint } from './actions';
 
 const mapStateToProps = state => ({
-  fingerprint: state.fingerprint,
+  loading: state.fingerprint.loading,
+  success: state.fingerprint.success,
+  error: state.fingerprint.error,
 });
 
 const mapDispatchToProps = dispatch =>

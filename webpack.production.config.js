@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Minify = require('babel-minify-webpack-plugin');
 const path = require('path');
@@ -37,5 +38,8 @@ module.exports = {
       template: './app/index.html',
     }),
     new Minify(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
   ],
 };

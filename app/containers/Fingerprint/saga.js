@@ -1,25 +1,95 @@
-import { put, call } from 'redux-saga/effects';
-import { takeLatest } from 'redux-saga';
+/* eslint-disable no-console */
+import { put, call, select } from 'redux-saga/effects';
+import { takeLatest, takeEvery, delay } from 'redux-saga';
 
+import FingerprintJS2 from 'fingerprintjs2';
+import { v3 as murmurhash } from 'murmur-hash';
+
+import * as FingerprintNinja from 'lib/probes';
 import fetchWrapper from 'app/fetch';
 
 import {
   publishFingerprintFail,
   publishFingerprintSuccess,
   PUBLISH_FINGERPRINT_REQUEST,
+  startLibrary,
+  START_LIBRARY,
+  stopLibrary,
+  STOP_LIBRARY,
 } from './actions';
 
-export function* publishFingerprintWorker({ fp }) {
+const fingerprintNinja = () =>
+  new Promise(resolve => {
+    const components = Object.values(FingerprintNinja).reduce((acc, probe) => {
+      try {
+        return { ...acc, [probe.name]: probe() };
+      } catch (e) {
+        console.log(`Fingerprint.ninja: ${probe.name} failed. Stack trace: ${e}`);
+        return acc;
+      }
+    }, {});
+    const hash = murmurhash.x64.hash128(JSON.stringify(components), 999); // constant seed
+    resolve({ hash, components });
+  });
+
+const fingerprintjs2 = () =>
+  new Promise(resolve => {
+    new FingerprintJS2().get((hash, components) => {
+      resolve({ hash, components });
+    });
+  });
+
+const libraries = {
+  FingerprintNinja: fingerprintNinja,
+  FingerprintJS2: fingerprintjs2,
+};
+
+export function* publishFingerprintWorker() {
   try {
-    // TODO: check 200 status - maybe throw error in wrapper for non 200s?
-    const response = yield call(fetchWrapper, 'POST', '/submit', fp);
-    console.log(response);
-    yield put(publishFingerprintSuccess());
-  } catch (error) {
-    yield put(publishFingerprintFail(error));
+    yield delay(100); // Delay by 0.1s for consistent fingerprints
+    yield put(startLibrary('FingerprintNinja'));
+    yield put(startLibrary('FingerprintJS2'));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* startLibraryWorker({ library }) {
+  try {
+    const fingerprint = yield call(libraries[library]);
+    yield put(stopLibrary({ library, fingerprint }));
+  } catch (e) {
+    yield put(stopLibrary({ library }));
+    console.log(e);
+  }
+}
+
+function* stopLibraryWorker() {
+  try {
+    const state = (yield select()).fingerprint;
+    if (state.loading.length === 0) {
+      console.log(state.fp);
+      // TODO: check 200 status - maybe throw error in wrapper for non 200s?
+      const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
+      console.log(response);
+      // alert(`${state.fp.FingerprintNinja && state.fp.FingerprintNinja.hash}\t${state.fp
+      //   .FingerprintJS2 && state.fp.FingerprintJS2.hash}`);
+      yield put(publishFingerprintSuccess());
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(publishFingerprintFail());
   }
 }
 
 export function* publishFingerprintWatcher() {
   yield* takeLatest(PUBLISH_FINGERPRINT_REQUEST, publishFingerprintWorker);
+}
+
+export function* startLibraryWatcher() {
+  yield* takeEvery(START_LIBRARY, startLibraryWorker);
+}
+
+export function* stopLibraryWatcher() {
+  yield* takeLatest(STOP_LIBRARY, stopLibraryWorker);
 }
