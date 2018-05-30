@@ -1,9 +1,9 @@
 {
-  "name": "fplabs",
+  "name": "fingerprint.ninja",
   "version": "1.0.0",
-  "description": "MEng Project - Device fingerprinting",
+  "description": "Device Fingerprinting - Computing MEng Project",
   "main": "index.js",
-  "repository": "git@github.com:Xanndarr/fplabs.git",
+  "repository": "git@github.com:Xanndarr/fingerprint.ninja.git",
   "author": "Tom Barwick <tom_barwick@hotmail.com>",
   "license": "MIT",
   "scripts": {
