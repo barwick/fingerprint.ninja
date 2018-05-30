@@ -42,7 +42,7 @@ module.exports = {
     modules: ['node_modules', 'app'],
     extensions: ['.js'],
   },
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   target: 'web', // Make web variables accessible to webpack, e.g. window
   devServer: {
     contentBase: './public', // ['./public', path.join(__dirname, 'static')]
