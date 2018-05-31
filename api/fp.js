@@ -33,18 +33,21 @@ export const submit = (event, context, callback) => {
     {},
   );
 
-  db.putItem(params({ id: uuid(), ...transformedBody }), err => {
-    if (err) {
-      callback(new Error(err)); // AWS Cloudwatch picks these up for logging
-      return;
-    }
-    callback(
-      null,
-      response((err && err.statusCode) || 200, {
-        message: err && err.code ? `${err.code}: ${err.message}` : undefined,
-      }),
-    );
-  });
+  db.putItem(
+    params({ id: uuid(), timestamp: new Date().toISOString(), ...transformedBody }),
+    err => {
+      if (err) {
+        callback(new Error(err)); // AWS Cloudwatch picks these up for logging
+        return;
+      }
+      callback(
+        null,
+        response((err && err.statusCode) || 200, {
+          message: err && err.code ? `${err.code}: ${err.message}` : undefined,
+        }),
+      );
+    },
+  );
 };
 
 export default submit;

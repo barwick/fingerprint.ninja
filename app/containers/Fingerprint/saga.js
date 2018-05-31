@@ -67,14 +67,13 @@ function* startLibraryWorker({ library }) {
 function* stopLibraryWorker() {
   try {
     const state = (yield select()).fingerprint;
-    if (state.loading.length === 0) {
-      console.log(state.fp);
+    if (state.loading.length > 0) return;
+    console.log(state.fp);
 
-      const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
-      if (response.status !== 200) throw new Error(response.message);
+    const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
+    if (response.status !== 200) throw new Error(response.message);
 
-      yield put(publishFingerprintSuccess());
-    }
+    yield put(publishFingerprintSuccess());
   } catch (e) {
     console.log(e);
     yield put(publishFingerprintFail());
