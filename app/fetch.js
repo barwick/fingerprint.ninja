@@ -10,7 +10,7 @@ async function fetchWrapper(method, resource = '', body) {
         ...body,
       }),
   });
-  return response.json();
+  return response;
 }
 
 export default fetchWrapper;

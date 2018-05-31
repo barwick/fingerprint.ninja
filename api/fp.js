@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import AWS from 'aws-sdk';
 import uuid from 'uuid/v4';
 import { AttributeValue as wrapper } from 'dynamodb-data-types';
@@ -5,9 +6,9 @@ import { AttributeValue as wrapper } from 'dynamodb-data-types';
 AWS.config.update({ region: 'eu-west-2' });
 const db = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
-const params = fp => ({
+const params = item => ({
   TableName: 'fingerprint-ninja',
-  Item: wrapper.wrap(fp),
+  Item: wrapper.wrap(item),
   ConditionExpression: 'attribute_not_exists(id)',
 });
 
@@ -23,14 +24,30 @@ const response = (statusCode, body) => ({
 
 export const submit = (event, context, callback) => {
   const body = event && event.body && JSON.parse(event.body);
+  const transformedBody = Object.keys(body).reduce(
+    (acc, val) => ({
+      ...acc,
+      [`hash-${val}`]: body[val].hash,
+      [`components-${val}`]: body[val].components,
+    }),
+    {},
+  );
 
-  // Assign random ID for table primary key
-  db.putItem(params({ id: uuid(), body }), err => {
-    callback(
-      null,
-      response((err && err.statusCode) || 200, { message: err && err.code ? err.code : undefined }),
-    );
-  });
+  db.putItem(
+    params({ id: uuid(), timestamp: new Date().toISOString(), ...transformedBody }),
+    err => {
+      if (err) {
+        callback(new Error(err)); // AWS Cloudwatch picks these up for logging
+        return;
+      }
+      callback(
+        null,
+        response((err && err.statusCode) || 200, {
+          message: err && err.code ? `${err.code}: ${err.message}` : undefined,
+        }),
+      );
+    },
+  );
 };
 
 export default submit;

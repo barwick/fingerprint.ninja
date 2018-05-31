@@ -67,15 +67,13 @@ function* startLibraryWorker({ library }) {
 function* stopLibraryWorker() {
   try {
     const state = (yield select()).fingerprint;
-    if (state.loading.length === 0) {
-      console.log(state.fp);
-      // TODO: check 200 status - maybe throw error in wrapper for non 200s?
-      const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
-      console.log(response);
-      // alert(`${state.fp.FingerprintNinja && state.fp.FingerprintNinja.hash}\t${state.fp
-      //   .FingerprintJS2 && state.fp.FingerprintJS2.hash}`);
-      yield put(publishFingerprintSuccess());
-    }
+    if (state.loading.length > 0) return;
+    console.log(state.fp);
+
+    const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
+    if (response.status !== 200) throw new Error(response.message);
+
+    yield put(publishFingerprintSuccess());
   } catch (e) {
     console.log(e);
     yield put(publishFingerprintFail());
