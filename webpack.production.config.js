@@ -1,12 +1,11 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Minify = require('babel-minify-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: ['babel-polyfill', './app/index'],
+  entry: ['whatwg-fetch', 'babel-polyfill', './app/index'],
   output: {
-    // Compile into js/build.js
+    // Compile into production/index.js
     path: path.resolve(__dirname, 'production'),
     publicPath: '/',
     filename: 'index.js',
@@ -37,7 +36,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './app/index.html',
     }),
-    new Minify(),
+    new webpack.optimize.UglifyJsPlugin({
+      parallel: true,
+      compress: {
+        keep_fnames: true,
+      },
+      mangle: {
+        keep_fnames: true, // maintains the `.name` property for function objects
+      },
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),

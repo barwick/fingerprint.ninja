@@ -15,8 +15,6 @@
   },
   "dependencies": {
     "aws-sdk": "^2.245.1",
-    "babel-minify-webpack-plugin": "^0.3.1",
-    "dynamodb-data-types": "^3.0.1",
     "file-loader": "^1.1.11",
     "fingerprintjs2": "^1.8.0",
     "html-loader": "^0.5.5",
@@ -32,7 +30,8 @@
     "redux-saga": "^0.16.0",
     "styled-components": "^3.2.6",
     "uuid": "^3.2.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
