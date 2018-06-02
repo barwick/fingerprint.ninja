@@ -4,13 +4,14 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: [
+    'whatwg-fetch',
     'babel-polyfill',
     'webpack-dev-server/client',
     'webpack/hot/only-dev-server',
     './app/index',
   ],
   output: {
-    // Compile into js/build.js
+    // Compile into public/index.js
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
     filename: 'index.js',
@@ -32,18 +33,18 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    modules: ['node_modules', 'app'],
+    extensions: ['.js'],
+  },
+  target: 'web', // Make web variables accessible to webpack, e.g. window
   plugins: [
     new HtmlWebpackPlugin({
       template: './app/index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-  resolve: {
-    modules: ['node_modules', 'app'],
-    extensions: ['.js'],
-  },
   devtool: 'eval-source-map',
-  target: 'web', // Make web variables accessible to webpack, e.g. window
   devServer: {
     contentBase: './public', // ['./public', path.join(__dirname, 'static')]
     hot: true,

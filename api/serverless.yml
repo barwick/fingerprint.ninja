@@ -1,5 +1,5 @@
 # Serverless deployment config
-service: fplabs
+service: fingperint-ninja
 
 # Bundle our handlers with webpack for ES6 support
 plugins:
@@ -14,8 +14,12 @@ custom:
 provider:
   name: aws
   runtime: nodejs6.10
-  stage: dev
   region: eu-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource: 'arn:aws:dynamodb:eu-west-2:859976271487:table/fingerprint-ninja'
 
 # Function scaffolding
 functions:
@@ -27,6 +31,7 @@ functions:
           method: post
           cors:
             origin: 'https://fingerprint.ninja'
-            headers:
-              - '*'
+            # `*` wildcard for 'Access-Control-Allow-Headers' unsupported by some common browsers
+            # headers:
+            #   - '*'
             allowCredentials: false
