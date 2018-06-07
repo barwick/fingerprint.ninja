@@ -23,10 +23,8 @@ I aim to provide an entropy (i.e. a measure of uniqueness) for each browser metr
 
 Here is the current list of metrics I probe:
 
-- `TODO: Double check fixed` Adblock detection
+- Adblock detection
 - `TODO` Audio and Video codec detection
-- `TODO` AudioContext
-- ClientInformation
 - Cookies
   - Enabled?
   - `TODO` Supercookies
@@ -35,15 +33,15 @@ Here is the current list of metrics I probe:
   - `TODO` Math constants
 - DevicePixelRatio
 - DoNotTrack
-- `TODO` [Device memory](https://w3c.github.io/device-memory/)
+- [Device memory](https://w3c.github.io/device-memory/)
 - Fonts
   - Classic font detection (via [font-detect](http://www.lalit.org/lab/javascript-css-font-detect/) by Lalit Patel - included in `vendor/`) from pre-defined font list.
   - `TODO` Unicode glyph measurements
-- `TODO` Hardware detection
+- Hardware detection
   - Accelerometer
-  - Camera
-  - Microphone
-  - Multi-monitor
+  - `TODO` Camera
+  - `TODO` Microphone
+  - `TODO` Multi-monitor
   - Touchscreen + WebAPI metrics
 - HTML Canvas - 2D
   - Alpha channel (transparency)
