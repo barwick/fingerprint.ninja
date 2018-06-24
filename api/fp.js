@@ -39,7 +39,7 @@ export const submit = (event, context, callback) => {
 
   db.put(dynamoParams({ event: transformedEvent, ...transformedBody }), err => {
     if (err) {
-      callback(new Error(err)); // AWS Cloudwatch picks these up for nicer logging
+      callback(new Error(JSON.stringify({ ...err, ...{ event: transformedEvent, ...transformedBody } }))); // AWS Cloudwatch picks these up for nicer logging
       return;
     }
     callback(
