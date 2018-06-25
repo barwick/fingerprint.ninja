@@ -18,19 +18,11 @@ import {
   STOP_LIBRARY,
 } from './actions';
 
-const fingerprintNinja = () =>
-  new Promise(resolve => {
-    const components = Object.values(FingerprintNinja).reduce((acc, probe) => {
-      try {
-        return { ...acc, [probe.name]: probe() };
-      } catch (e) {
-        console.log(`Fingerprint.ninja: ${probe.name} failed. Stack trace: ${e}`);
-        return acc;
-      }
-    }, {});
-    const hash = murmurhash.x64.hash128(JSON.stringify(components), 999); // constant seed
-    resolve({ hash, components });
-  });
+const fingerprintNinja = async () => {
+  const components = await Promise.all(Object.values(FingerprintNinja).map(async p => p()));
+  const hash = murmurhash.x64.hash128(components.join(';'), 999); // constant seed
+  return { hash, components };
+};
 
 const fingerprintjs2 = () =>
   new Promise(resolve => {
@@ -48,7 +40,8 @@ export function* publishFingerprintWorker() {
   try {
     yield delay(100); // Delay by 0.1s for consistent fingerprints
     yield put(startLibrary('FingerprintNinja'));
-    yield put(startLibrary('FingerprintJS2'));
+    // FPJS2 currently interfering with something bizarre
+    // yield put(startLibrary('FingerprintJS2'));
   } catch (e) {
     console.log(e);
   }
@@ -68,7 +61,7 @@ function* stopLibraryWorker() {
   try {
     const state = (yield select()).fingerprint;
     if (state.loading.length > 0) return;
-    console.log(state.fp);
+    console.log(state.fp.FingerprintNinja);
 
     const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
     if (response.status !== 200) throw new Error(response.message);
