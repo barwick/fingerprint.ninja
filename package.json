@@ -7,8 +7,9 @@
   "author": "Tom Barwick <tom_barwick@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "build-prod": "webpack --config webpack.production.config.js",
+    "build": "webpack && cp static/include/* public/",
+    "build-prod": "rm -rf production/* && webpack --config webpack.production.config.js && cp static/include/* production/",
+    "deploy": "npm run build-prod && source .env && aws s3 sync production/ s3://fingerprint.ninja/",
     "start": "webpack-dev-server --host 0.0.0.0 --port 3000",
     "start-prod": "webpack-dev-server --host 0.0.0.0 --port 3000 --entry production/",
     "precommit": "eslint app/ lib/ && lint-staged"
