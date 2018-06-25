@@ -67,7 +67,7 @@ function* stopLibraryWorker() {
     if (response.status !== 200) throw new Error(response.message);
 
     yield put(publishFingerprintSuccess());
-    alert(`Fingerprint hash: ${state.fp.FingerprintJS2.hash}`);
+    alert(`Fingerprint hash: ${state.fp.FingerprintNinja.hash}`);
   } catch (e) {
     console.log(e);
     yield put(publishFingerprintFail());
