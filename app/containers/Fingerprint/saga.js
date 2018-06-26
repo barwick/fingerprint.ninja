@@ -61,7 +61,14 @@ function* stopLibraryWorker() {
   try {
     const state = (yield select()).fingerprint;
     if (state.loading.length > 0) return;
-    console.log(state.fp.FingerprintNinja);
+
+    const hashComponents = Object.keys(FingerprintNinja).reduce((acc, k, i) => {
+      acc[k] = state.fp.FingerprintNinja.components[i];
+      return acc;
+    }, {});
+
+    console.log(state.fp.FingerprintNinja.hash);
+    console.log(hashComponents);
 
     const response = yield call(fetchWrapper, 'POST', '/submit', state.fp);
     if (response.status !== 200) throw new Error(response.message);
